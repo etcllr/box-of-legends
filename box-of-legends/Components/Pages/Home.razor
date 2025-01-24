@@ -49,10 +49,10 @@
                         <div class="swiper-slide">
                             <a href="/product/@(product.Id)-@(product.Name.ToLower())">
                                 <div class="product--card">
-                                    <img src="images/product-test.png" class="product-image img-fluid" alt="Mel">
+                                    <img src="@(product.LargeImage)" class="product-image img-fluid mb-4" alt="Mel">
                                     <div class="product-details">
-                                        <span class="product-name">Mel</span>
-                                        <span class="product-price">$19.99</span>
+                                        <span class="product-name">@(product.Name)</span>
+                                        <span class="product-price">@(product.Price)€</span>
                                     </div>
                                     <a class="add-to-cart">
                                         <ion-icon name="cart-outline"></ion-icon>
@@ -177,8 +177,6 @@
             loop: true,
 
             slidesPerView: 5,
-            
-            autoplay: true,
             
             spaceBetween: 20,
 

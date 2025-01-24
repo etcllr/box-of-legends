@@ -1,5 +1,52 @@
-@page "/product/{Id}"
+@page "/product/{id:int}-{name}"
+@using Microsoft.EntityFrameworkCore
+@using box_of_legends.Data
+@using static box_of_legends.Models.Product
 
-<div class="container">
-    
+@inject ApplicationDbContext Context
+
+<div class="container py-4">
+    @if (product != null)
+    {
+        <div class="row product">
+            <div class="col-6">
+                <img src="@(product.LargeImage)" alt="@product.Name" class="img-fluid">
+            </div>
+            <div class="col-6">
+                <h1>@product.Name</h1>
+                <p class="price">@product.Price€</p>
+                <button class="btn btn-primary" @onclick="AddToCart">
+                    <ion-icon name="cart-outline"></ion-icon>
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+        <div class="row description mt-4">
+            @product.Description
+        </div>
+    }
+    else
+    {
+        <p>Product not found</p>
+    }
 </div>
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+   
+    [Parameter]
+    public string name { get; set; }
+   
+    private box_of_legends.Models.Product product;
+
+    protected override async Task OnInitializedAsync()
+    {
+        product = await Context.Product.FindAsync(id);
+    }
+
+    private async Task AddToCart()
+    {
+        // Logique d'ajout au panier
+    }
+}

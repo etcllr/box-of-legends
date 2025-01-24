@@ -349,3 +349,14 @@ button.menu-item {
     font-family: "League";
     color: #C28F2C;
 }
+
+.product h1 {
+    font-size: 30px;
+    font-family: "League";
+    color: #C28F2C;
+}
+
+.product .price {
+    font-size: 40px;
+    font-family: "League";
+}
