@@ -67,9 +67,112 @@
     </div>
 </section>
 
+<section id="categories">
+    <div class="container">
+        <div class="section-header">
+            <div class="left-column">
+                <h2 class="section-title">Our<span class="gold-text">categories</span></h2>
+            </div>
+            <div class="right-column">
+                <div class="swiper-controls">
+                    <div class="categories-previous control">
+                        <ion-icon name="chevron-back-outline"></ion-icon>
+                    </div>
+                    <div class="categories-next control">
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="categories">
+            <div class="swiper categories-swipe">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <a href="">
+                            <div class="category--card">
+                                <img src="images/categories/controller.webp" class="category-image img-fluid"
+                                     alt="Controller">
+                                <div class="category-details">
+                                    <span class="category-name">Controller</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="">
+                            <div class="category--card">
+                                <img src="images/categories/fighter.png" class="category-image img-fluid"
+                                     alt="Fighter">
+                                <div class="category-details">
+                                    <span class="category-name">Fighter</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="">
+                            <div class="category--card">
+                                <img src="images/categories/Mage.webp" class="category-image img-fluid"
+                                     alt="Mage">
+                                <div class="category-details">
+                                    <span class="category-name">Mage</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="">
+                            <div class="category--card">
+                                <img src="images/categories/marksman.webp" class="category-image img-fluid"
+                                     alt="Marksman">
+                                <div class="category-details">
+                                    <span class="category-name">Marksman</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="">
+                            <div class="category--card">
+                                <img src="images/categories/slayer.webp" class="category-image img-fluid"
+                                     alt="Slayer">
+                                <div class="category-details">
+                                    <span class="category-name">Slayer</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="">
+                            <div class="category--card">
+                                <img src="images/categories/tank.webp" class="category-image img-fluid"
+                                     alt="Tank">
+                                <div class="category-details">
+                                    <span class="category-name">Tank</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="">
+                            <div class="category--card">
+                                <img src="images/categories/specialist.webp" class="category-image img-fluid"
+                                     alt="Specialist">
+                                <div class="category-details">
+                                    <span class="category-name">Specialist</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <script>
     window.addEventListener('load', function () {
-        const swiper = new Swiper('.most-wanted-swipe', {
+        new Swiper('.most-wanted-swipe', {
             // Optional parameters
             loop: true,
 
@@ -83,6 +186,21 @@
             navigation: {
                 nextEl: '.most-wanted-next',
                 prevEl: '.most-wanted-previous',
+            },
+        });
+
+        new Swiper('.categories-swipe', {
+            // Optional parameters
+            loop: false,
+
+            slidesPerView: 5,
+
+            spaceBetween: 20,
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.categories-next',
+                prevEl: '.categories-previous',
             },
         });
     })

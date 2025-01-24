@@ -232,11 +232,12 @@ section {
 .footer .copyright {
     font-size: 12px;
     color: #d6d6d6;
-    margin-top: 100px;
 }
 
 .footer .menu {
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .footer .menu li a {
@@ -253,4 +254,92 @@ button.menu-item {
     border: none;
     padding: 0;
     cursor: pointer;
+}
+
+.products-footer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.category--card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: rgb(17, 17, 17);
+}
+
+.category--card .category-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.categories-swipe a {
+    text-decoration: none;
+}
+
+.category--card .category-name {
+    font-size: 20px;
+    font-family: "League";
+    color: #C28F2C;
+    text-decoration: none;
+}
+
+#newsletter {
+    height: 400px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#newsletter .container {
+    border-radius: 15px;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+}
+
+#newsletter img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#newsletter img::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#newsletter .section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    gap: 20px;
+    color: white;
+    z-index: 1;
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 5px;
+}
+
+.newsletter-form,
+#newsletter .right-column {
+    width: 50%
 }
