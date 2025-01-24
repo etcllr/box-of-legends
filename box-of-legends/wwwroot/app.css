@@ -343,3 +343,9 @@ button.menu-item {
 #newsletter .right-column {
     width: 50%
 }
+
+.user-profile .title {
+    font-size: 30px;
+    font-family: "League";
+    color: #C28F2C;
+}

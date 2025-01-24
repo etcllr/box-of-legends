@@ -5,54 +5,33 @@
 
 @attribute [Authorize]
 
-@inject UserManager<ApplicationUser> UserManager
-@inject AuthenticationStateProvider AuthenticationStateProvider
-
 <PageTitle>Auth</PageTitle>
 
 <div class="container py-4">
-
     <AuthorizeView Context="authContext">
         <div class="user-profile">
-            <h2>Profile de @authContext.User.Identity?.Name</h2>
-            <EditForm Model="userModel" OnValidSubmit="HandleValidSubmit">
-                <DataAnnotationsValidator />
-                <ValidationSummary />
-
-                <div class="form-group mb-3">
-                    <label>Email :</label>
-                    <InputText @bind-Value="userModel.Email" class="form-control" />
+            <div class="title">
+                Profile
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card p-4 shadow">
+                            <a href="/Account/Manage/Email">Manage your email</a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card p-4 shadow">
+                            <a href="/Account/Manage/ChangePassword">Manage your password</a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card p-4 shadow">
+                            <a href="/Account/Manage/PersonalData">Manage your personal data</a>
+                        </div>
+                    </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Sauvegarder</button>
-            </EditForm>
+            </div>
         </div>
     </AuthorizeView>
 </div>
-
-@code {
-    private UserModel userModel = new();
-
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = await UserManager.GetUserAsync(authState.User);
-        userModel.Name = user.UserName;
-        userModel.Email = user.Email;
-    }
-
-    private async Task HandleValidSubmit()
-    {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = await UserManager.GetUserAsync(authState.User);
-        user.UserName = userModel.Name;
-        user.Email = userModel.Email;
-        await UserManager.UpdateAsync(user);
-    }
-
-    private class UserModel
-    {
-        public string Name { get; set; }
-        public string Email { get; set; }
-    }
-}
