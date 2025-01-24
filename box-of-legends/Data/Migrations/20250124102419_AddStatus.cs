@@ -10,20 +10,19 @@ namespace box_of_legends.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
+            migrationBuilder.RenameColumn(
                 name: "status",
                 table: "Cart",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "");
+                newName: "Status");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "status",
-                table: "Cart");
+            migrationBuilder.RenameColumn(
+                name: "Status",
+                table: "Cart",
+                newName: "status");
         }
     }
 }

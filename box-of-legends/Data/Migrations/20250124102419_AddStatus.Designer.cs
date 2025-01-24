@@ -11,7 +11,7 @@ using box_of_legends.Data;
 namespace box_of_legends.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250124100834_AddStatus")]
+    [Migration("20250124102419_AddStatus")]
     partial class AddStatus
     {
         /// <inheritdoc />
@@ -221,7 +221,7 @@ namespace box_of_legends.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("status")
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
