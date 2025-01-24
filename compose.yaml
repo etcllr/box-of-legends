@@ -1,0 +1,6 @@
+﻿services:
+  box-of-legends:
+    image: box-of-legends
+    build:
+      context: .
+      dockerfile: box-of-legends/Dockerfile
