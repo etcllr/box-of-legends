@@ -1,52 +1,72 @@
 @page "/product/{id:int}-{name}"
 @using Microsoft.EntityFrameworkCore
 @using box_of_legends.Data
-@using static box_of_legends.Models.Product
+@using box_of_legends.Models
 
 @inject ApplicationDbContext Context
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ILogger<Product> Logger
 
 <div class="container py-4">
-    @if (product != null)
-    {
-        <div class="row product">
-            <div class="col-6">
-                <img src="@(product.LargeImage)" alt="@product.Name" class="img-fluid">
-            </div>
-            <div class="col-6">
-                <h1>@product.Name</h1>
-                <p class="price">@product.Price€</p>
-                <button class="btn btn-primary" @onclick="AddToCart">
-                    <ion-icon name="cart-outline"></ion-icon>
-                    Add to Cart
-                </button>
-            </div>
-        </div>
-        <div class="row description mt-4">
-            @product.Description
-        </div>
-    }
-    else
-    {
-        <p>Product not found</p>
-    }
+   @if (productModel != null)
+   {
+       <div class="row product">
+           <div class="col-6">
+               <img src="@productModel.LargeImage" alt="@productModel.Name" class="img-fluid">
+           </div>
+           <div class="col-6">
+               <h1>@productModel.Name</h1>
+               <p class="price">@productModel.Price€</p>
+               <div class="mb-4">
+                   <p>@productModel.Description</p>
+               </div>
+               <AuthorizeView>
+                   <Authorized>
+                       <button class="btn btn-primary" @onclick="@(() => AddToCart())">
+                           <ion-icon name="cart-outline"></ion-icon>
+                           Add to Cart
+                       </button>
+                   </Authorized>
+                   <NotAuthorized>
+                       Please login to add to cart
+                   </NotAuthorized>
+               </AuthorizeView>
+           </div>
+       </div>
+   }
+   else
+   {
+       <p>Product not found</p>
+   }
 </div>
 
 @code {
-    [Parameter]
-    public int id { get; set; }
+   [Parameter]
+   public int id { get; set; }
    
-    [Parameter]
-    public string name { get; set; }
+   [Parameter]
+   public string name { get; set; }
    
-    private box_of_legends.Models.Product product;
+   private box_of_legends.Models.Product productModel;
 
-    protected override async Task OnInitializedAsync()
-    {
-        product = await Context.Product.FindAsync(id);
-    }
+   protected override async Task OnInitializedAsync()
+   {
+       productModel = await Context.Product.FindAsync(id);
+       Console.WriteLine($"Product ID: {productModel?.Id}");
+   }
 
-    private async Task AddToCart()
-    {
-        // Logique d'ajout au panier
-    }
+   private async Task AddToCart()
+   {
+       try 
+       {
+           Console.WriteLine("Début AddToCart");
+           var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+           Console.WriteLine($"Auth: {authState.User.Identity.IsAuthenticated}");
+           throw new Exception("Test exception");
+       }
+       catch (Exception ex)
+       {
+           Console.WriteLine($"Erreur: {ex.Message}");
+       }
+   }
 }
