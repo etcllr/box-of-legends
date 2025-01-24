@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'League';
+    src: url('fonts/League.otf') format('opentype');
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -48,4 +53,192 @@ h1:focus {
 
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
+}
+
+.navbar {
+    background-color: #111111;
+    padding: 10px;
+}
+
+.navbar .menu {
+    display: flex;
+    gap: 15px;
+}
+
+.navbar .menu .menu-item {
+    color: white;
+    font-size: 20px;
+}
+
+.hero {
+    position: relative;
+}
+
+.hero img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.hero .text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.hero .text .title {
+    font-size: 80px;
+    font-family: "League";
+    line-height: 70px;
+}
+
+.hero .text .title.white {
+    color: white;
+}
+
+.hero .text .title.gold {
+    color: #C28F2C;
+}
+
+section {
+    margin-top: 20px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header .swiper-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.section-header .swiper-controls .control {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    background-color: #111111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    transition: .2s ease-in-out;
+}
+
+.section-header .swiper-controls .control:hover {
+    background-color: #C28F2C;
+}
+
+.section-title {
+    font-family: "League";
+    font-size: 22px;
+}
+
+.section-title .gold-text {
+    color: #C28F2C;
+}
+
+.subtitle {
+    font-size: 18px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.product--card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: white;
+    border: 1px solid #E5E5E5;
+}
+
+.product--card .product-image {
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
+}
+
+.product--card .product-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product--card .product-details .product-name {
+    font-size: 20px;
+    font-family: "League";
+}
+
+.product--card .product-details .product-name::first-letter {
+    color: #C28F2C;
+}
+
+.product--card .product-details .product-price {
+    font-size: 20px;
+    font-family: "League";
+}
+
+.product--card .add-to-cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: #59C1DE;
+    color: white;
+    margin-left: auto;
+    transition: .2s ease-in-out;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.product--card .add-to-cart:hover {
+    background-color: #52afc9;
+}
+
+.footer {
+    margin-top: 20px;
+    width: 100%;
+    background-color: #f3f3f3;
+    padding: 40px 0;
+}
+
+.footer .container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.footer .league {
+    font-family: "League";
+}
+
+.footer .gold {
+    color: #C28F2C;
+}
+
+.footer .left-column {
+    width: 33%;
+}
+
+.footer .copyright {
+    font-size: 12px;
+    color: #d6d6d6;
+    margin-top: 100px;
+}
+
+.footer .menu {
+    list-style: none;
+}
+
+.footer .menu li a {
+    color: black;
 }
