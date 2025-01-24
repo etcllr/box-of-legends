@@ -1,0 +1,59 @@
+@page "/cart"
+@using box_of_legends.Data
+@using box_of_legends.Models
+@using Microsoft.EntityFrameworkCore
+
+@inject ApplicationDbContext Context
+@inject IDbContextFactory<ApplicationDbContext> DbFactory
+
+<div class="container py-4">
+    <h1>Mon Panier</h1>
+
+    @if (cartItems == null || !cartItems.Any())
+    {
+        <p>Votre panier est vide</p>
+    }
+    else
+    {
+        <div class="cart-items">
+            @foreach (var item in cartItems)
+            {
+                <div class="cart-item">
+                    <img src="images/product-test.png" alt="@item.Product.Name" />
+                    <div class="item-details">
+                        <h3>@item.Product.Name</h3>
+                        <p>Prix: $@item.Product.Price</p>
+                        <p>Quantité: @item.Quantity</p>
+                    </div>
+                    <button @onclick="() => RemoveFromCart(item)" class="btn btn-danger">
+                        <ion-icon name="trash-outline"></ion-icon>
+                    </button>
+                </div>
+            }
+        </div>
+
+        <div class="cart-total">
+            <h3>Total: $@cartItems.Sum(i => i.Product.Price * i.Quantity)</h3>
+        </div>
+    }
+</div>
+
+@code {
+    private List<CartLine> cartItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = await DbFactory.CreateDbContextAsync();
+        cartItems = await context.CartLine
+            .Include(c => c.Product)
+            .ToListAsync();
+    }
+
+    private async Task RemoveFromCart(CartLine item)
+    {
+        using var context = await DbFactory.CreateDbContextAsync();
+        context.CartLine.Remove(item);
+        await context.SaveChangesAsync();
+        cartItems.Remove(item);
+    }
+}

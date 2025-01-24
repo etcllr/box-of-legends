@@ -1,15 +1,58 @@
 ﻿@page "/auth"
-
 @using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using box_of_legends.Data
 
 @attribute [Authorize]
+
+@inject UserManager<ApplicationUser> UserManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Auth</PageTitle>
 
 <div class="container py-4">
-    <h1>You are authenticated</h1>
 
-    <AuthorizeView>
-        Hello @context.User.Identity?.Name!
+    <AuthorizeView Context="authContext">
+        <div class="user-profile">
+            <h2>Profile de @authContext.User.Identity?.Name</h2>
+            <EditForm Model="userModel" OnValidSubmit="HandleValidSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group mb-3">
+                    <label>Email :</label>
+                    <InputText @bind-Value="userModel.Email" class="form-control" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Sauvegarder</button>
+            </EditForm>
+        </div>
     </AuthorizeView>
 </div>
+
+@code {
+    private UserModel userModel = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = await UserManager.GetUserAsync(authState.User);
+        userModel.Name = user.UserName;
+        userModel.Email = user.Email;
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = await UserManager.GetUserAsync(authState.User);
+        user.UserName = userModel.Name;
+        user.Email = userModel.Email;
+        await UserManager.UpdateAsync(user);
+    }
+
+    private class UserModel
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+    }
+}
