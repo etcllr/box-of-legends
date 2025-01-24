@@ -242,3 +242,15 @@ section {
 .footer .menu li a {
     color: black;
 }
+
+.products a {
+    text-decoration: none;
+    color: black;
+}
+
+button.menu-item {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}

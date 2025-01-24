@@ -7,61 +7,70 @@ using box_of_legends.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddDbContextFactory<ApplicationDbContext>();
+
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+   .AddInteractiveServerComponents();
 
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
-builder.Services
-    .AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+
+builder.Services.AddControllers();
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
 
 builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultScheme = IdentityConstants.ApplicationScheme;
-        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-    })
-    .AddIdentityCookies();
+   {
+       options.DefaultScheme = IdentityConstants.ApplicationScheme;
+       options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+   })
+   .AddIdentityCookies();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
-                       throw new InvalidOperationException(
-                           "Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? 
+   throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString));
+   options.UseSqlite(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services
-    .AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddSignInManager()
-    .AddDefaultTokenProviders();
+   .AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+   .AddEntityFrameworkStores<ApplicationDbContext>()
+   .AddSignInManager()
+   .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.MapControllerRoute(
+   name: "product",
+   pattern: "product/{id}-{name}",
+   defaults: new { controller = "Products", action = "Details" }
+);
+
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
+   app.UseMigrationsEndPoint();
 }
 else
 {
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+   app.UseExceptionHandler("/Error", createScopeForErrors: true);
+   app.UseHsts();
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
 app.UseAntiforgery();
 
+app.MapBlazorHub();
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+   .AddInteractiveServerRenderMode();
 
-// Add additional endpoints required by the Identity /Account Razor components.
+app.MapRazorComponents<App>()
+   .AddInteractiveServerRenderMode();
+
 app.MapAdditionalIdentityEndpoints();
 
 app.Run();

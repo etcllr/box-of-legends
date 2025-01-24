@@ -11,7 +11,7 @@ using box_of_legends.Data;
 namespace box_of_legends.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250124102419_AddStatus")]
+    [Migration("20250124114609_AddStatus")]
     partial class AddStatus
     {
         /// <inheritdoc />
@@ -297,17 +297,6 @@ namespace box_of_legends.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ChampionId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LargeImage")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -315,13 +304,7 @@ namespace box_of_legends.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("SmallImage")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ChampionId");
 
                     b.ToTable("Product");
                 });
@@ -414,17 +397,6 @@ namespace box_of_legends.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("box_of_legends.Models.Product", b =>
-                {
-                    b.HasOne("box_of_legends.Models.Champion", "Champion")
-                        .WithMany()
-                        .HasForeignKey("ChampionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Champion");
                 });
 
             modelBuilder.Entity("box_of_legends.Models.Cart", b =>

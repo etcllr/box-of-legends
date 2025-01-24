@@ -1,4 +1,6 @@
 ﻿@page "/"
+@using box_of_legends.Data
+@using Microsoft.EntityFrameworkCore
 
 <PageTitle>Home</PageTitle>
 
@@ -42,174 +44,23 @@
         <div class="products">
             <div class="swiper most-wanted-swipe">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product--card">
-                            <img src="images/product-test.png" class="product-image" alt="Mel">
-                            <div class="product-details">
-                                <span class="product-name">Mel</span>
-                                <span class="product-price">$19.99</span>
-                            </div>
-                            <a class="add-to-cart">
-                                <ion-icon name="cart-outline"></ion-icon>
+                    @foreach (var product in products)
+                    {
+                        <div class="swiper-slide">
+                            <a href="/product/@(product.Id)-@(product.Name.ToLower())">
+                                <div class="product--card">
+                                    <img src="images/product-test.png" class="product-image img-fluid" alt="Mel">
+                                    <div class="product-details">
+                                        <span class="product-name">Mel</span>
+                                        <span class="product-price">$19.99</span>
+                                    </div>
+                                    <a class="add-to-cart">
+                                        <ion-icon name="cart-outline"></ion-icon>
+                                    </a>
+                                </div>
                             </a>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product--card">
-                            <img src="images/product-test.png" class="product-image" alt="Mel">
-                            <div class="product-details">
-                                <span class="product-name">Mel</span>
-                                <span class="product-price">$19.99</span>
-                            </div>
-                            <a class="add-to-cart">
-                                <ion-icon name="cart-outline"></ion-icon>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product--card">
-                            <img src="images/product-test.png" class="product-image" alt="Mel">
-                            <div class="product-details">
-                                <span class="product-name">Mel</span>
-                                <span class="product-price">$19.99</span>
-                            </div>
-                            <a class="add-to-cart">
-                                <ion-icon name="cart-outline"></ion-icon>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product--card">
-                            <img src="images/product-test.png" class="product-image" alt="Mel">
-                            <div class="product-details">
-                                <span class="product-name">Mel</span>
-                                <span class="product-price">$19.99</span>
-                            </div>
-                            <a class="add-to-cart">
-                                <ion-icon name="cart-outline"></ion-icon>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product--card">
-                            <img src="images/product-test.png" class="product-image" alt="Mel">
-                            <div class="product-details">
-                                <span class="product-name">Mel</span>
-                                <span class="product-price">$19.99</span>
-                            </div>
-                            <a class="add-to-cart">
-                                <ion-icon name="cart-outline"></ion-icon>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product--card">
-                            <img src="images/product-test.png" class="product-image" alt="Mel">
-                            <div class="product-details">
-                                <span class="product-name">Mel</span>
-                                <span class="product-price">$19.99</span>
-                            </div>
-                            <a class="add-to-cart">
-                                <ion-icon name="cart-outline"></ion-icon>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product--card">
-                            <img src="images/product-test.png" class="product-image" alt="Mel">
-                            <div class="product-details">
-                                <span class="product-name">Mel</span>
-                                <span class="product-price">$19.99</span>
-                            </div>
-                            <a class="add-to-cart">
-                                <ion-icon name="cart-outline"></ion-icon>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product--card">
-                            <img src="images/product-test.png" class="product-image" alt="Mel">
-                            <div class="product-details">
-                                <span class="product-name">Mel</span>
-                                <span class="product-price">$19.99</span>
-                            </div>
-                            <a class="add-to-cart">
-                                <ion-icon name="cart-outline"></ion-icon>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product--card">
-                            <img src="images/product-test.png" class="product-image" alt="Mel">
-                            <div class="product-details">
-                                <span class="product-name">Mel</span>
-                                <span class="product-price">$19.99</span>
-                            </div>
-                            <a class="add-to-cart">
-                                <ion-icon name="cart-outline"></ion-icon>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product--card">
-                            <img src="images/product-test.png" class="product-image" alt="Mel">
-                            <div class="product-details">
-                                <span class="product-name">Mel</span>
-                                <span class="product-price">$19.99</span>
-                            </div>
-                            <a class="add-to-cart">
-                                <ion-icon name="cart-outline"></ion-icon>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product--card">
-                            <img src="images/product-test.png" class="product-image" alt="Mel">
-                            <div class="product-details">
-                                <span class="product-name">Mel</span>
-                                <span class="product-price">$19.99</span>
-                            </div>
-                            <a class="add-to-cart">
-                                <ion-icon name="cart-outline"></ion-icon>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product--card">
-                            <img src="images/product-test.png" class="product-image" alt="Mel">
-                            <div class="product-details">
-                                <span class="product-name">Mel</span>
-                                <span class="product-price">$19.99</span>
-                            </div>
-                            <a class="add-to-cart">
-                                <ion-icon name="cart-outline"></ion-icon>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product--card">
-                            <img src="images/product-test.png" class="product-image" alt="Mel">
-                            <div class="product-details">
-                                <span class="product-name">Mel</span>
-                                <span class="product-price">$19.99</span>
-                            </div>
-                            <a class="add-to-cart">
-                                <ion-icon name="cart-outline"></ion-icon>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product--card">
-                            <img src="images/product-test.png" class="product-image" alt="Mel">
-                            <div class="product-details">
-                                <span class="product-name">Mel</span>
-                                <span class="product-price">$19.99</span>
-                            </div>
-                            <a class="add-to-cart">
-                                <ion-icon name="cart-outline"></ion-icon>
-                            </a>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
@@ -236,3 +87,20 @@
         });
     })
 </script>
+
+@inject IDbContextFactory<ApplicationDbContext> DbFactory
+
+@code {
+    private List<box_of_legends.Models.Product> products = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = await DbFactory.CreateDbContextAsync();
+        products = await context.Product
+            .ToListAsync();
+        products = products
+            .OrderBy(x => Random.Shared.Next())
+            .Take(10)
+            .ToList();
+    }
+}

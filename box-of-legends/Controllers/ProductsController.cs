@@ -26,19 +26,15 @@ namespace box_of_legends.Controllers
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id, string name)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+            var product = await _context.Product.FindAsync(id);
+            if (product == null) return NotFound();
+    
+            // Vérifiez que le nom dans l'URL correspond
+            var correctUrl = $"/product/{id}-{product.Name.ToLower()}";
+            if (!Request.Path.Value.EndsWith(correctUrl))
+                return RedirectPermanent(correctUrl);
 
             return View(product);
         }

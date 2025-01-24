@@ -6,8 +6,10 @@
 
 <PageTitle>Auth</PageTitle>
 
-<h1>You are authenticated</h1>
+<div class="container py-4">
+    <h1>You are authenticated</h1>
 
-<AuthorizeView>
-    Hello @context.User.Identity?.Name!
-</AuthorizeView>
+    <AuthorizeView>
+        Hello @context.User.Identity?.Name!
+    </AuthorizeView>
+</div>
