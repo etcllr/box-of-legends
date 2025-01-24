@@ -7,11 +7,10 @@
 @inject IDbContextFactory<ApplicationDbContext> DbFactory
 
 <div class="container py-4">
-    <h1>Mon Panier</h1>
 
     @if (cartItems == null || !cartItems.Any())
     {
-        <p>Votre panier est vide</p>
+        <p>Your cart is empty</p>
     }
     else
     {
@@ -22,8 +21,8 @@
                     <img src="images/product-test.png" alt="@item.Product.Name" />
                     <div class="item-details">
                         <h3>@item.Product.Name</h3>
-                        <p>Prix: $@item.Product.Price</p>
-                        <p>Quantité: @item.Quantity</p>
+                        <p>Price: $@item.Product.Price</p>
+                        <p>Quantity: @item.Quantity</p>
                     </div>
                     <button @onclick="() => RemoveFromCart(item)" class="btn btn-danger">
                         <ion-icon name="trash-outline"></ion-icon>
