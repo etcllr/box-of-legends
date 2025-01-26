@@ -1,0 +1,88 @@
+@page "/admin"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.EntityFrameworkCore
+@using box_of_legends.Data
+@using box_of_legends.Models
+@* @attribute [Authorize(Roles = "Admin")] *@
+
+@inject IDbContextFactory<ApplicationDbContext> DbFactory
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between">
+        <h3>Products</h3>
+        <a class="btn btn-primary" href="/admin/products/create">Create Product</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td class="d-flex gap-2">
+                        <a class="btn btn-primary" href="/admin/products/@(product.Id)/edit">Edit</a>
+                        <button class="btn btn-danger" @onclick="() => DeleteProduct(product)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3>Users</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => DeleteUser(user)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    private List<Product> products = new();
+    private List<ApplicationUser> users = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = await DbFactory.CreateDbContextAsync();
+        products = await context.Product.ToListAsync();
+        users = await context.Users.ToListAsync();
+    }
+
+    private async void DeleteProduct(Product product)
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Product.Remove(product);
+        await context.SaveChangesAsync();
+        products.Remove(product);
+    }
+
+    private async void DeleteUser(ApplicationUser user)
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Users.Remove(user);
+        await context.SaveChangesAsync();
+        users.Remove(user);
+    }
+}
